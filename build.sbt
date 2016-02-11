@@ -21,8 +21,6 @@ lazy val server = (project in file("jvm")).settings(
   includeFilter in gzip := "*.html" || "*.css" || "*.js",
   libraryDependencies ++= Seq(
     filters,
-    jdbc,
-    evolutions,
     cache,
     "com.lihaoyi" %% "scalatags" % scalatagsV
   )
