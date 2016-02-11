@@ -6,6 +6,7 @@ lazy val clients = Seq(client)
 lazy val scalaV = "2.11.7"
 
 lazy val scalatagsV = "0.5.4"
+lazy val reactV = "0.14.3"
 
 lazy val server = (project in file("jvm")).settings(
   scalaVersion := scalaV,
@@ -21,8 +22,7 @@ lazy val server = (project in file("jvm")).settings(
   includeFilter in gzip := "*.html" || "*.css" || "*.js",
   libraryDependencies ++= Seq(
     filters,
-    cache,
-    "com.lihaoyi" %% "scalatags" % scalatagsV
+    cache
   )
 ).enablePlugins(PlayScala,SbtWeb)
   .aggregate(clients.map(projectToRef): _*)
@@ -35,11 +35,14 @@ lazy val client = (project in file("js")).settings(
   persistLauncher in Test := false,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.8.1",
-    "com.lihaoyi" %%% "scalatags" % scalatagsV,
     "com.lihaoyi" %%% "scalarx" % "0.2.8",
     "be.doeraene" %%% "scalajs-jquery" % "0.8.0",
     "com.lihaoyi" %%% "upickle" % "0.3.4",
-    "org.webjars.bower" % "react" % "0.14.7"  
+    "com.github.japgolly.scalajs-react" %%% "core" % "0.10.4"
+  ),
+  jsDependencies ++= Seq(
+    "org.webjars.bower" % "react" % reactV / "react-with-addons.js" minified "react-with-addons.min.js" commonJSName "React",
+    "org.webjars.bower" % "react" % reactV / "react-dom.js" minified "react-dom.min.js" dependsOn "react-with-addons.js" commonJSName "React"
   )
 ).enablePlugins(ScalaJSPlugin, ScalaJSPlay).
   dependsOn(sharedJs)
