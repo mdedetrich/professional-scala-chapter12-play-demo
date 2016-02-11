@@ -23,6 +23,7 @@ lazy val server = (project in file("jvm")).settings(
     filters,
     jdbc,
     evolutions,
+    cache,
     "com.lihaoyi" %% "scalatags" % scalatagsV
   )
 ).enablePlugins(PlayScala,SbtWeb)

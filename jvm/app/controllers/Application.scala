@@ -6,8 +6,12 @@ import shared.views.MyWidget
 /**
   * Created by matthewdedetrich on 11/02/2016.
   */
-class MainController extends Controller {
-  def myWdiget = Action {
+class Application extends Controller {
+  def index(any: String) = Action {
+    Ok("index")
+  }
+  
+  def myWidget = Action {
     Ok(MyWidget.template)
   }
   
